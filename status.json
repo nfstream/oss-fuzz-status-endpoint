@@ -1,1 +1,1 @@
-{"schemaVersion": 1, "label": "oss-fuzz", "message": "fuzzing", "color": "brightgreen", "isError": "false"}
+{"schemaVersion": 1, "label": "oss-fuzz", "message": "fuzzing", "color": "brightgreen", "isError": "false", "logoSvg": "https://raw.githubusercontent.com/nfstream/oss-fuzz-status-endpoint/main/logo.svg"}

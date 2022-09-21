@@ -17,28 +17,35 @@ import urllib.request
 import json
 
 OSS_FUZZ_STATUS_URL = "https://oss-fuzz-build-logs.storage.googleapis.com/status.json"
-NFSTREAM_PROJECT_ID = 492
+PROJECT_NAME = "nfstream"
 STATUS_RESPONSE = {
     "schemaVersion": 1,
     "label": "oss-fuzz",
     "message": "",
     "color": "",
     "isError": "",
-    "logoSvg": "https://raw.githubusercontent.com/nfstream/oss-fuzz-status-endpoint/main/logo.svg"
+    "logoSvg": "https://raw.githubusercontent.com/nfstream/oss-fuzz-status-endpoint/main/logo.svg",
 }
 
 with urllib.request.urlopen(OSS_FUZZ_STATUS_URL) as status_url:
-    status_data = json.load(status_url)["projects"][NFSTREAM_PROJECT_ID]
-    if status_data["name"] == "nfstream":
-        if str(status_data["history"][0]["success"]) == 'True':
-            with open('status.json', 'w') as status_file:
-                STATUS_RESPONSE["message"] = "fuzzing"
-                STATUS_RESPONSE["color"] = "brightgreen"
-                STATUS_RESPONSE["isError"] = "false"
-                json.dump(STATUS_RESPONSE, status_file)
+    status_data = json.load(status_url)["projects"]
+    for project_data in status_data:
+        if project_data["name"] == PROJECT_NAME:
+            project_status = str(project_data["history"][0]["success"])
+            if project_status == 'True':
+                print("Status: Fuzzing.")
+                with open('status.json', 'w') as status_file:
+                    STATUS_RESPONSE["message"] = "fuzzing"
+                    STATUS_RESPONSE["color"] = "brightgreen"
+                    STATUS_RESPONSE["isError"] = "false"
+                    json.dump(STATUS_RESPONSE, status_file)
+            else:
+                print("Status: Failing.")
+                with open('status.json', 'w') as status_file:
+                    STATUS_RESPONSE["message"] = "failing"
+                    STATUS_RESPONSE["color"] = "red"
+                    STATUS_RESPONSE["isError"] = "true"
+                    json.dump(STATUS_RESPONSE, status_file)
+            break
         else:
-            with open('status.json', 'w') as status_file:
-                STATUS_RESPONSE["message"] = "failing"
-                STATUS_RESPONSE["color"] = "red"
-                STATUS_RESPONSE["isError"] = "true"
-                json.dump(STATUS_RESPONSE, status_file)
+            pass
