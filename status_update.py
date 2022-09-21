@@ -23,7 +23,8 @@ STATUS_RESPONSE = {
     "label": "oss-fuzz",
     "message": "",
     "color": "",
-    "isError": ""
+    "isError": "",
+    "logoSvg": "https://raw.githubusercontent.com/nfstream/oss-fuzz-status-endpoint/main/logo.svg"
 }
 
 with urllib.request.urlopen(OSS_FUZZ_STATUS_URL) as status_url:
