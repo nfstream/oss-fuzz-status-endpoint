@@ -26,6 +26,7 @@ STATUS_RESPONSE = {
     "message": "",
     "color": "",
     "isError": "",
+    "style": "for-the-badge",
     "logoSvg": """{}""".format(OSS_FUZZ_LOGO)
 }
 
