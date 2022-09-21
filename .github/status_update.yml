@@ -1,0 +1,28 @@
+name: "status_update"
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '*/5 * * * *'
+
+  status_update:
+    name: "status_update"
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: recursive
+
+    - name: Check
+      run: |
+        python3 -m pip install --upgrade pip
+        python3 -m pip install -r requirements.txt
+        python3 status_update.py
+
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Update status

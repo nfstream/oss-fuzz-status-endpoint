@@ -1,1 +1,1 @@
-{ "schemaVersion": 1, "label": "oss-fuzz", "message": "fuzzing", "color": "brightgreen" }
+{"schemaVersion": 1, "label": "oss-fuzz", "message": "fuzzing", "color": "brightgreen", "isError": "false"}
